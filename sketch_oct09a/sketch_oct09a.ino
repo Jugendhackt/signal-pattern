@@ -1,6 +1,11 @@
+// Variablen bennen
 int x;
 boolean eins;
+int starttime = 0;
+int endtime= 0;
+int elapsedtime=0;
 
+// Aufbau des Arduinos
 void setup()
 {
 pinMode(13, OUTPUT);
@@ -9,21 +14,33 @@ boolean inputRead;
 digitalWrite(13, LOW);
 }
 
+// 
 void loop() {
   
-  boolean vorRead = digitalRead(2);
+  boolean vorRead = digitalRead(2);  // bei dieser methode 2 option true/false
   if (vorRead==true)
   {
     eins = true;
   }
-  
+  // Abfrage ob die taste gedrückt wurde 
   if(!vorRead && eins == true)
+  {
+    endtime = millis();
+    elapsedtime = endtime - starttime; // Wie viel zeit seit dem letzten drücken vergangen ist 
+  
+  }
+  if(!vorRead && eins == true && ((elapsedtime >= 1000 && elapsedtime <= 2000)|| elapsedtime == endtime)) // entweder wird die taste zum zweiten mal in einem bestimmt zeitraum gedrückt oder es wird zum ersten mal gedrückt
   {
     x += 1;
    eins = false;   
+   starttime = millis();
   }
-
-  if(x>=2)
+  else if(vorRead && eins == true && !((elapsedtime >= 1000 && elapsedtime <= 2000)|| elapsedtime == endtime)) // diese zeile wird nur ausgeführt wenn die oberen zwei optionnicht erfüllt wurden oder wenn die taste vor länger als zwei ode
+  //er weniger als eine sekunde gedrückt worden ist
+  {
+    starttime = 0;
+  }
+ if(x>=2)
   {
   for(int i=0; i < 3; i = i+1)
   {
