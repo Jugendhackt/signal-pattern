@@ -40,7 +40,7 @@ void loop() {
   {
     starttime = 0;
   }
- if(x>=2)
+ if(x>=3)
   {
   for(int i=0; i < 3; i = i+1)
   {
