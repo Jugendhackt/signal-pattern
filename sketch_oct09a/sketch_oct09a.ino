@@ -6,6 +6,7 @@ void setup()
 pinMode(13, OUTPUT);
 pinMode(2, INPUT);
 boolean inputRead;
+digitalWrite(13, LOW);
 }
 
 void loop() {
@@ -32,7 +33,6 @@ void loop() {
   digitalWrite(13, LOW);
   delay(1000);
   }
-  
   x = 0;
   
   }
