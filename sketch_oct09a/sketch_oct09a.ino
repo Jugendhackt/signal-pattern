@@ -28,7 +28,7 @@ void loop()
 {
   vorReadRecord = digitalRead(3);
   boolean vorRead = digitalRead(2);  // bei dieser methode 2 option true/false
-  Serial.println(x);
+  Serial.println(analogRead(0));
   delay(10);
   if (vorRead == true)
   {
