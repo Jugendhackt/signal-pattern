@@ -92,12 +92,13 @@ void loop()
   }
 }
 
-  void record()
+void record()
+{
+  if (!vorReadRecord && zwei)
   {
-
-    if (!vorReadRecord && zwei)
-    {
-      recordboolean = false;
-      zwei = false;
-    }
+    recordboolean = false;
+    zwei = false;
   }
+}
+
+  //TEST
