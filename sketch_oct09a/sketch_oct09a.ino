@@ -1,4 +1,3 @@
-// Variablen bennen
 int x;
 boolean eins;
 boolean zwei;
@@ -13,83 +12,27 @@ int endtime = 0;
 int elapsedtime = 0;
 boolean vorReadRecord;
 
-// Aufbau des Arduinos
+
 void setup()
 {
   pinMode(13, OUTPUT);
   pinMode(2, INPUT);
-  boolean inputRead;
   digitalWrite(13, LOW);
   Serial.begin(9600);
 }
 
-//
+
 void loop()
 {
   vorReadRecord = digitalRead(3);
-  boolean vorRead = digitalRead(2);  // bei dieser methode 2 option true/false
-  Serial.println(analogRead(0));
-  delay(10);
-  if (vorRead == true)
-  {
-    eins = true;
-  }
 
   if (vorReadRecord == true)
-  {
     zwei = true;
-  }
 
   if (recordboolean)
-  {
     record();
-  }
   else
-  {
-
-    if (!vorReadRecord && zwei)
-    {
-      recordboolean = true;
-      zwei = false;
-    }
-
-    // Abfrage ob die taste gedrückt wurde
-    if (!vorRead && eins == true)
-    {
-      endtime = millis();
-      elapsedtime = endtime - starttime; // Wie viel zeit seit dem letzten drücken vergangen ist
-
-    }
-
-
-
-    if (!vorRead && eins == true && ((elapsedtime >= 500 * zeit && elapsedtime <= 1000 * zeit) || elapsedtime == endtime)) // entweder wird die taste zum zweiten mal in einem bestimmt zeitraum gedrückt oder es wird zum ersten mal gedrückt
-    {
-      x += 1;
-      eins = false;
-      starttime = millis();
-    }
-    else if (vorRead && eins == true && !((elapsedtime >= 500 * zeit && elapsedtime <= 1000 * zeit) || elapsedtime == endtime)) // diese zeile wird nur ausgeführt wenn die oberen zwei optionnicht erfüllt wurden oder wenn die taste vor länger als zwei ode
-      //er weniger als eine sekunde gedrückt worden ist
-    {
-      starttime = 0;
-      x = 0;
-    }
-    if (x >= drueckanzahl)
-    {
-      for (int i = 0; i < 3; i = i + 1)
-      {
-        digitalWrite(13, HIGH);
-        delay(1000);
-
-        digitalWrite(13, LOW);
-        delay(1000);
-        starttime = 0;
-      }
-      x = 0;
-    }
-
-  }
+    detectPattern();
 }
 
 void record()
@@ -101,4 +44,66 @@ void record()
   }
 }
 
-  //TEST
+void detectPattern()
+{
+  if (getVorRead() == false)
+    eins = true;
+    
+  if (!vorReadRecord && zwei)
+  {
+    recordboolean = true;
+    zwei = false;
+  }
+
+  if (getVorRead() && eins == true)
+  {
+    endtime = millis();
+    elapsedtime = endtime - starttime; // Wie viel zeit seit dem letzten drücken vergangen ist
+  }
+
+  if (getVorRead() && eins == true && ((elapsedtime >= 500 * zeit && elapsedtime <= 1000 * zeit) || elapsedtime == endtime))
+  {
+    x += 1;
+    eins = false;
+    starttime = millis();
+  }
+  else if (getVorRead() && eins == true && !((elapsedtime >= 500 * zeit && elapsedtime <= 1000 * zeit) || elapsedtime == endtime))
+  {
+    starttime = 0;
+    x = 0;
+  }
+  if (x >= drueckanzahl)
+  {
+    for (int i = 0; i < 3; i = i + 1)
+    {
+      digitalWrite(13, HIGH);
+      delay(1000);
+
+      digitalWrite(13, LOW);
+      delay(1000);
+      starttime = 0;
+    }
+    x = 0;
+  }
+}
+
+float getElectrodeValue()
+{
+  float sensorValue = analogRead(A0);
+  float millivolt = (sensorValue / 1023) * 5;
+  Serial.print(millivolt);
+  Serial.print ("x: ");
+  Serial.print(x);
+  Serial.println();
+  delay(100);
+  return millivolt;
+}
+
+boolean getVorRead()
+{
+  getElectrodeValue();
+  if (getElectrodeValue() > 2)
+    return true;
+  else if (getElectrodeValue() < 1)
+    return false;
+}
