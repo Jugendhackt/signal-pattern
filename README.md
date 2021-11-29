@@ -2,7 +2,7 @@
 This code can be used to initiate an alarm via active buzzer by flexing your 
 muscle on which electrodes are attached to in a specific order. 
 Initially, it requires you to press three times with one or two seconds
-between each signal received by the EMG. The code will be modified in the
+between each signal spike received by the EMG. The code will be modified in the
 future, so that a modified pattern can be made by simply using a record 
 function. Additionally, the circuit will be transfered from an Arduino to
 a wifi-module to not limit it's functionality to simple auditive or visual
