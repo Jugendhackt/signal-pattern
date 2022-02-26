@@ -7,9 +7,7 @@ muscle on which electrodes are attached to in a specific order.
 Initially, it requires you to press three times with one or two seconds
 between each signal spike received by the EMG. The code will be modified in the
 future, so that a unique pattern can be made by simply using a record 
-function. Additionally, the circuit will be transfered from an Arduino to
-a wifi-module to not limit it's functionality to simple auditive or visual
-signals.
+function.
 
 This project was created during the Jugend Hackt 2021 in Berlin. It tries
 to help immobile seniors to initiate a call for help during the night by 
