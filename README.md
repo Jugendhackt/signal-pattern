@@ -1,4 +1,7 @@
 # signal-pattern
+
+!Circuit diagram is currently under revision!
+
 This code can be used to initiate an alarm via active buzzer by flexing your 
 muscle on which electrodes are attached to in a specific order. 
 Initially, it requires you to press three times with one or two seconds
